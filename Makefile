@@ -3,7 +3,7 @@ run:
 
 init_conda:
 	conda env create -f environment.yml
-	conda activate panasonic
+	conda activate su-tts
 	conda env list
 
 install_requirements:
