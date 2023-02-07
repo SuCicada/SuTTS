@@ -1,0 +1,3 @@
+[submodule "moegoe"]
+	path = moegoe
+	url = git@github.com:CyborgParadisum/MoeGoe.git
