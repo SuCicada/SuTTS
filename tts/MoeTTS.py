@@ -1,14 +1,14 @@
 import os
 import sys
 
+import numpy
 from torch import LongTensor, no_grad
 
 from moegoe.MoeGoe import get_label_value, get_label, get_text
 from moegoe.models import SynthesizerTrn
 from moegoe.utils import load_checkpoint, get_hparams_from_file
 
-
-class SuTTS:
+class MoeTTS:
     model: str
     config: str
     speakers: list
@@ -49,7 +49,7 @@ class SuTTS:
             text = "[JA]" + text + "[JA]"
         return text
 
-    def text_to_speech(self, text: str, speaker_id: int):
+    def text_to_speech(self, text: str, speaker_id: int)-> (numpy.ndarray,int):
         net_g_ms = self.net_g_ms
         n_symbols = self.n_symbols
         emotion_embedding = self.emotion_embedding

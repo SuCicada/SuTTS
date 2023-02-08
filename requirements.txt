@@ -25,3 +25,4 @@ opencc
 
 gdown
 sounddevice
+flask

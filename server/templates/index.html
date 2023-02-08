@@ -1,0 +1,39 @@
+<body>
+<h1>Htmlテーブルを動的に作成</h1>
+<table>
+    <thead>
+    <tr>
+        <th>アルファベット</th>
+        <th>No.</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key in data %}
+    <tr>
+        <td onclick="speak('{{key}}')">{{ key }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div id="response"></div>
+</body>
+<script>
+    function speak(text) {
+        console.log(text)
+        fetch("/speak", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: text
+            })})
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerHTML = JSON.stringify(data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+</script>
