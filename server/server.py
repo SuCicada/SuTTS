@@ -1,4 +1,5 @@
 import numpy
+import sounddevice
 # from fastapi import FastAPI
 # from fastapi.middleware.cors import CORSMiddleware
 # import uvicorn
@@ -36,13 +37,14 @@ def audio():
     text, speaker = params['text'], params['speaker']
     print(text, speaker)
     audio, sampling_rate = su_tts.get_audio(text, speaker)
+    # sounddevice.play(audio, sampling_rate, blocking=True)
     audio: numpy.ndarray = audio
-    print(audio, sampling_rate)
     byte_data = pickle.dumps({
         "status": "ok",
         "audio": audio.tobytes(),
         "sampling_rate": sampling_rate
     })
+
     response = make_response(byte_data)
     response.headers['Content-Type'] = 'application/octet-stream'
     return response

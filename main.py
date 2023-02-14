@@ -1,12 +1,14 @@
 import os
 import sys
 
-moegoe_module = os.path.join(os.path.abspath(os.path.dirname(__file__)), "moegoe")
-print("moegoe_module", moegoe_module)
-sys.path.append(moegoe_module)
-
 from tts.SuTTS import SuTTS
-CACHE_MODE = False
+
+# moegoe_module = os.path.join(os.path.abspath(os.path.dirname(__file__)), "moegoe")
+# print("moegoe_module", moegoe_module)
+# sys.path.append(moegoe_module)
+#
+# from tts.SuTTS import SuTTS
+# CACHE_MODE = False
 # 2792 佐倉杏子
 # 2842 美樹さやか
 佐倉杏子 = 2792

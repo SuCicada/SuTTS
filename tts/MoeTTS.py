@@ -81,6 +81,8 @@ class MoeTTS:
                                            noise_scale_w=noise_scale_w, length_scale=length_scale)[0][
                         0, 0].data.cpu().float().numpy()
                 # print(out_path, sampling_rate, audio)
+                # print(audio, sampling_rate)
+
                 return audio, sampling_rate
                 # sd.play(audio, sampling_rate, blocking=True)
 

@@ -26,6 +26,9 @@ class SuTTS:
     def get_audio_direct(self, text: str, speaker_id: int):
         print("generating audio...", text)
         audio, sampling_rate = self.moe_tts.text_to_speech(text, speaker_id)
+        # print(audio, sampling_rate)
+        # sounddevice.play(audio, sampling_rate, blocking=True)
+
         return audio, sampling_rate
 
     def get_audio_with_cache(self, text: str, speaker_id: int):
@@ -46,4 +49,6 @@ class SuTTS:
 
     def speak(self, text: str, speaker_id: int):
         audio, sampling_rate = self.get_audio(text, speaker_id)
+        print("playing audio...")
+        print(audio, sampling_rate)
         sounddevice.play(audio, sampling_rate, blocking=True)

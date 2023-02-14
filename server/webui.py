@@ -1,7 +1,9 @@
 import json
 import pickle
 
+import numpy
 import requests
+import sounddevice
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -22,9 +24,13 @@ def speak():
     response = requests.post('http://localhost:7100/audio', json=req_json)
 
     json_data = pickle.loads(response.content)
-    print(json_data)
+    # print(json_data)
     audio = json_data['audio']
+    audio = numpy.frombuffer(audio,  dtype='float32')
     sampling_rate = json_data['sampling_rate']
+    print( sampling_rate)
+    sounddevice.play(audio, sampling_rate, blocking=True)
+
     # data = response
     # return data
 
