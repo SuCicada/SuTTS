@@ -1,3 +1,8 @@
 [submodule "moegoe"]
-	path = moegoe
+	path = repositories/moegoe
 	url = git@github.com:CyborgParadisum/MoeGoe.git
+
+[submodule "so-vits-svc"]
+	path = repositories/so_vits_svc
+	url = git@github.com:CyborgParadisum/so-vits-svc.git
+	branch = 32k_dev
