@@ -1,15 +1,16 @@
+import pickle
+
 import numpy
 import sounddevice
+from flask import make_response, Flask, request
+from pydantic import BaseModel
+
+from sutts.inference.so_vits_svc import SoVitsSvcTTS
+
 # from fastapi import FastAPI
 # from fastapi.middleware.cors import CORSMiddleware
 # import uvicorn
 # from typing import Dict, Any
-
-from pydantic import BaseModel
-
-from tts.SuTTS import SuTTS
-import pickle
-
 #
 # app = FastAPI()
 # app.add_middleware(
@@ -20,10 +21,8 @@ import pickle
 #     allow_headers=["*"],
 # )
 
-su_tts = SuTTS()
-from flask import make_response, Flask, request
-
 app = Flask(__name__)
+so_vits_svc = SoVitsSvcTTS()
 
 
 class AudioParams(BaseModel):
@@ -31,25 +30,25 @@ class AudioParams(BaseModel):
     speaker: int
 
 
-@app.post("/audio")
+@app.post("/audio/so_vits_svc")
 def audio():
     params = request.json
-    text, speaker = params['text'], params['speaker']
-    print(text, speaker)
-    audio, sampling_rate = su_tts.get_audio(text, speaker)
-    # sounddevice.play(audio, sampling_rate, blocking=True)
-    audio: numpy.ndarray = audio
+    text = params['text']
+    # params['speaker']
+    print(text)
+    sampling_rate, audio_data = so_vits_svc.get_audio(text)
+    audio_data: numpy.ndarray = audio_data
     byte_data = pickle.dumps({
         "status": "ok",
-        "audio": audio.tobytes(),
+        "audio": audio_data.tobytes(),
         "sampling_rate": sampling_rate
     })
 
     response = make_response(byte_data)
+
+    # sounddevice.play(audio, sampling_rate, blocking=True)
     response.headers['Content-Type'] = 'application/octet-stream'
     return response
-
-
 
 
 def main():
@@ -59,3 +58,5 @@ def main():
 #     uvicorn.run(app, host="0.0.0.0",port=7100, reload=True)
 # if __name__ == '__main__':
 #     uvicorn.run(app, host="0.0.0.0",port=7100, reload=True)
+# if __name__ == '__main__':
+#     main()

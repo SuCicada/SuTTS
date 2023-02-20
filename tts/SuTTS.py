@@ -6,7 +6,7 @@ print("moegoe_module", moegoe_module)
 sys.path.append(moegoe_module)
 
 import numpy
-import audio_cache
+import cache
 from tts.MoeTTS import MoeTTS
 import sounddevice
 

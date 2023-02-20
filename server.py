@@ -1,5 +1,5 @@
 
-from server import server
+from sutts.server import server
 
 if __name__ == '__main__':
     server.main()
