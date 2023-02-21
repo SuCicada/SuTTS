@@ -26,3 +26,4 @@ opencc
 gdown
 sounddevice
 flask
+flask-cors

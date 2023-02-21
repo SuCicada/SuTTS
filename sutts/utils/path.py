@@ -3,7 +3,7 @@ import sys
 from os import path
 
 module_repo = [
-    "moegoe",
+    # "moegoe",
     "so_vits_svc"
 ]
 project_root_path = \

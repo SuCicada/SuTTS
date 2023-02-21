@@ -22,8 +22,8 @@ from repositories.so_vits_svc.inference.utils import SoVitsSvc
 # device = "cpu"
 # so.set_device(device)
 # so.loadCheckpoint("mikisayaka")
-model_path = os.path.join(so_vits_svc_path, "models/mikisayaka-G_50000.pth")
-config_path = os.path.join(so_vits_svc_path, "models/mikisayaka-config.json")
+model_path = os.path.join(so_vits_svc_path, "_models/mikisayaka-G_50000.pth")
+config_path = os.path.join(so_vits_svc_path, "_models/mikisayaka-config.json")
 print("model_path", model_path)
 print("config_path", config_path)
 logging.getLogger("gtts").setLevel(logging.INFO)
@@ -108,6 +108,7 @@ class SoVitsSvcTTS:
             return _transform_audio()
 
     def get_audio_with_origin(self, text):
+        text = text.strip()
         orgin_sampling_rate, wav_bytes = self.text_to_wav(text)
         sampling_rate, audio = self.transform_audio(text, orgin_sampling_rate, wav_bytes)
 

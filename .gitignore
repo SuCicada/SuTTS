@@ -4,3 +4,4 @@
 models/*
 *.db
 db/
+*.wav

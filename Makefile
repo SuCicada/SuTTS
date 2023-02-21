@@ -6,7 +6,7 @@ init_conda:
 	conda env list
 install_requirements:
 	pip install -r requirements.txt
-	pip install -r so-vits-svc/requirements-mac.txt
+	pip install -r repositories/so_vits_svc/requirements-mac.txt
 
 download-model-moegoe:
 	mkdir -p models

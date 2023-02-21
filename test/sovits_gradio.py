@@ -1,9 +1,12 @@
-from inference.infer_tool_grad import VitsSvc
-import gradio as gr
 import os
-from sutts.inference import so_vits_svc
-from sutts.inference.so_vits_svc import SoVitsSvcTTS
+import sys
 
+import gradio as gr
+sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+print(sys.path)
+# os.environ['PYTHONPATH'] = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+# print("PYTHONPATH", os.environ['PYTHONPATH'])
+from sutts.inference.so_vits_svc import SoVitsSvcTTS
 
 class VitsGradio:
     def __init__(self):
@@ -44,7 +47,8 @@ class VitsGradio:
             #         btnMod.click(self.loadModel, inputs=[modelstrs,devicestrs], outputs = [self.dsid,self.VoiceConversion])
 
 
-grVits = VitsGradio()
+if __name__ == '__main__':
+    grVits = VitsGradio()
 
-grVits.Vits.launch(debug=True)
+    grVits.Vits.launch(debug=True)
 # grVits.Vits.launch(debug=True,share=True)
