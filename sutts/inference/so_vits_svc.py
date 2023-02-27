@@ -9,7 +9,8 @@ import numpy as np
 from gtts import gTTS
 from pydub import AudioSegment
 
-from cache import newCache, USE_CACHE_INFERENCE_AUDIO
+from cache import newCache, CacheConfig
+from sutts.inference import CharacterModel
 from sutts.utils.path import add_dependencies, so_vits_svc_path
 
 add_dependencies()
@@ -17,15 +18,10 @@ print(sys.path)
 
 from repositories.so_vits_svc.inference.utils import SoVitsSvc
 
-
 # so = VitsSvc()
 # device = "cpu"
 # so.set_device(device)
 # so.loadCheckpoint("mikisayaka")
-model_path = os.path.join(so_vits_svc_path, "_models/mikisayaka-G_50000.pth")
-config_path = os.path.join(so_vits_svc_path, "_models/mikisayaka-config.json")
-print("model_path", model_path)
-print("config_path", config_path)
 logging.getLogger("gtts").setLevel(logging.INFO)
 
 
@@ -45,9 +41,11 @@ logging.getLogger("gtts").setLevel(logging.INFO)
 #     return data
 
 class SoVitsSvcTTS:
-    def __init__(self):
+    # def __init__(self, model_path, config_path):
+    def __init__(self, character_model: CharacterModel):
         self.cache = newCache()
-        self.so = SoVitsSvc(model_path, config_path)
+        self.so = SoVitsSvc(character_model.model_path, character_model.config_path)
+        self.speaker = character_model.speaker
 
     def mp3_to_wav(self, mp3_bytes):
         # mp3 to wav
@@ -79,7 +77,7 @@ class SoVitsSvcTTS:
     # tmp = np.frombuffer(wav_bytes, dtype=np.int16)
     # sounddevice.play(tmp, sampling_rate, blocking=True)
     def transform_audio(self, text, _sampling_rate, wav_bytes):
-        speaker = "mikisayaka"  # todo
+        speaker = self.speaker
 
         def _transform_audio():
             audio_data = np.frombuffer(wav_bytes, dtype=np.int16)
@@ -93,7 +91,7 @@ class SoVitsSvcTTS:
             sampling_rate, audio = self.so.inference(srcaudio, chara, tran, slice_db)
             return sampling_rate, audio
 
-        if USE_CACHE_INFERENCE_AUDIO:
+        if CacheConfig.USE_CACHE_INFERENCE_AUDIO:
             audio_obj = self.cache.get(text, speaker)
             if not audio_obj:
                 print("miss cache, inference audio")
@@ -107,16 +105,16 @@ class SoVitsSvcTTS:
         else:
             return _transform_audio()
 
-    def get_audio_with_origin(self, text):
+    def get_audio_with_origin(self, text) -> ((int, numpy.ndarray), (int, numpy.ndarray)):
         text = text.strip()
         orgin_sampling_rate, wav_bytes = self.text_to_wav(text)
         sampling_rate, audio = self.transform_audio(text, orgin_sampling_rate, wav_bytes)
 
-        wav = numpy.frombuffer(wav_bytes, dtype=np.int16)
+        wav: numpy.ndarray = numpy.frombuffer(wav_bytes, dtype=np.int16)
         return (orgin_sampling_rate, wav), (sampling_rate, audio)
 
     # def main():
-    def get_audio(self, text):
+    def get_audio(self, text) -> (int, numpy.ndarray):
         ori, res = self.get_audio_with_origin(text)
         return res
         # sounddevice.play(np.frombuffer(wav_bytes, dtype=np.int16),

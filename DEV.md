@@ -16,3 +16,6 @@ git@github.com:CyborgParadisum/so-vits-svc.git repositories/so_vits_svc
 
 
 ```
+
+```bash
+huggingface-cli

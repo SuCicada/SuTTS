@@ -1,8 +1,9 @@
 ```bash
 make init_conda
+. ./active.sh
 conda activate su-tts
 make install_requirements
-make download_model
+make download-model-so_vits_svc
 
 ```
 
@@ -10,4 +11,3 @@ make download_model
 - [moetts] 毎回生成された音声は違います。
 
 
-pip install git+https://github.com/CyborgParadisum/so-vits-svc.git@32k_dev 

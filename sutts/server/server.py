@@ -74,7 +74,7 @@ def audio():
 
 
 def main():
-    app.run(port=7100, debug=False, threaded=False)
+    app.run(host="0.0.0.0", port=7100, debug=False, threaded=False)
 
 # def main():
 #     uvicorn.run(app, host="0.0.0.0",port=7100, reload=True)
