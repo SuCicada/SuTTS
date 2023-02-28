@@ -21,13 +21,13 @@ class CharacterModel:
 
 character_model_map = {
     CharacterModel.mikisayaka: CharacterModel(
-        model_path=os.path.join(so_vits_svc_path, "_models/mikisayaka-G_50000-infer.pth"),
-        config_path=os.path.join(so_vits_svc_path, "_models/mikisayaka-config.json"),
+        model_path=os.path.join(so_vits_svc_path, "_models/mikisayaka/mikisayaka-G_50000-infer.pth"),
+        config_path=os.path.join(so_vits_svc_path, "_models/mikisayaka/mikisayaka-config.json"),
         speaker=CharacterModel.mikisayaka
     ),
     CharacterModel.sakurakyouko: CharacterModel(
-        model_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko-G_100000-infer.pth"),
-        config_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko-config.json"),
+        model_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko/sakurakyouko-G_100000-infer.pth"),
+        config_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko/sakurakyouko-config.json"),
         speaker=CharacterModel.sakurakyouko
     )
 }

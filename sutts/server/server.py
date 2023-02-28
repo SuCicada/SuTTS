@@ -1,5 +1,6 @@
 import io
 import json
+import os
 import pickle
 
 import numpy
@@ -74,7 +75,8 @@ def audio():
 
 
 def main():
-    app.run(host="0.0.0.0", port=7100, debug=False, threaded=False)
+    port = os.environ.get('PORT', 7100)
+    app.run(host="0.0.0.0", port=port, debug=False, threaded=False)
 
 # def main():
 #     uvicorn.run(app, host="0.0.0.0",port=7100, reload=True)
