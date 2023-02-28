@@ -28,6 +28,6 @@ character_model_map = {
     CharacterModel.sakurakyouko: CharacterModel(
         model_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko-G_100000-infer.pth"),
         config_path=os.path.join(so_vits_svc_path, "_models/sakurakyouko-config.json"),
-        speaker=CharacterModel.mikisayaka
+        speaker=CharacterModel.sakurakyouko
     )
 }
