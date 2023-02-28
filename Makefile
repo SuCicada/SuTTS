@@ -1,5 +1,11 @@
+conda_env = su-tts
 run:
 	python main.py
+server:
+	conda run -n $(conda_env) python server.py
+gradio:
+	conda run -n $(conda_env) python test/sovits_gradio.py
+
 
 init_conda:
 	conda env create -f environment.yml
@@ -20,20 +26,20 @@ define wget_if_not_exist
 		wget -O $(1) $(2); \
 	fi
 endef
-modules_dir = repositories/so_vits_svc/_models
+so_vits_svc_dir = repositories/so_vits_svc/
+so_vits_svc_modules = $(so_vits_svc_dir)/_models
 download-model-so_vits_svc:
 	#@title 下载必要模型文件
-	#make -C repositories/so_vits_svc download-model
-	$(call wget_if_not_exist, hubert/hubert-soft-0d54a1f4.pt, https://github.com/bshall/hubert/releases/download/v0.1/hubert-soft-0d54a1f4.pt)
-	mkdir -p $(modules_dir)
-	$(call wget_if_not_exist, $(modules_dir)/mikisayaka/mikisayaka-G_50000-infer.pth ,\
+	make -C $(so_vits_svc_dir) download-model-hubert
+	mkdir -p $(so_vits_svc_modules)
+	$(call wget_if_not_exist, $(so_vits_svc_modules)/mikisayaka/mikisayaka-G_50000-infer.pth ,\
 			https://huggingface.co/SuCicada/SuTTS/resolve/main/mikisayaka/mikisayaka-G_50000-infer.pth)
-	$(call wget_if_not_exist, $(modules_dir)/mikisayaka/mikisayaka-config.json ,\
+	$(call wget_if_not_exist, $(so_vits_svc_modules)/mikisayaka/mikisayaka-config.json ,\
 			https://huggingface.co/SuCicada/SuTTS/resolve/main/mikisayaka/mikisayaka-config.json)
 
-	$(call wget_if_not_exist, $(modules_dir)/sakurakyouko/sakurakyouko-G_100000-infer.pth ,\
+	$(call wget_if_not_exist, $(so_vits_svc_modules)/sakurakyouko/sakurakyouko-G_100000-infer.pth ,\
 			https://huggingface.co/SuCicada/SuTTS/resolve/main/sakurakyouko/sakurakyouko-G_100000-infer.pth)
-	$(call wget_if_not_exist, $(modules_dir)/sakurakyouko/sakurakyouko-config.json ,\
+	$(call wget_if_not_exist, $(so_vits_svc_modules)/sakurakyouko/sakurakyouko-config.json ,\
 			https://huggingface.co/SuCicada/SuTTS/resolve/main/sakurakyouko/sakurakyouko-config.json)
 
 git_update:
