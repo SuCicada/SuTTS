@@ -14,6 +14,12 @@ download-model-moegoe:
 	gdown "1PuUC_4cOvWFwOuskOapCk4VLaUXIgLPZ" -O model.pth && \
 	gdown "1EGTJGwxIrjtyx6cJoF9-be5yw8YWV7OB" -O config.json
 
+define wget_if_not_exist
+	@if [ ! -f $(1) ]; then \
+		mkdir -p $(dir $(1)); \
+		wget -O $(1) $(2); \
+	fi
+endef
 modules_dir = repositories/so_vits_svc/_models
 download-model-so_vits_svc:
 	#@title 下载必要模型文件
