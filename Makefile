@@ -13,8 +13,8 @@ init_conda:
 	conda env create -f environment.yml
 	conda env list
 install_requirements:
-	pip install -r requirements.txt
-	pip install -r repositories/so_vits_svc/requirements-infer.txt
+	$(conda_run) pip install -r requirements.txt
+	$(conda_run) pip install -r repositories/so_vits_svc/requirements-infer.txt
 
 download-model-moegoe:
 	mkdir -p models
@@ -45,6 +45,6 @@ download-model-so_vits_svc:
 			https://huggingface.co/SuCicada/SuTTS/resolve/main/sakurakyouko/sakurakyouko-config.json)
 
 git_update:
-	#git pull
-	git submodule update --recursive --remote
+	git pull --recurse-submodules
+	git submodule update --recursive
 
