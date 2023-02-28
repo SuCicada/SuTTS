@@ -1,10 +1,12 @@
 conda_env = su-tts
+conda_run = conda run -n $(conda_env) --no-capture-output
 run:
 	python main.py
 server:
-	conda run -n $(conda_env) python server.py
+	$(conda_run) python server.py
+
 gradio:
-	conda run -n $(conda_env) python test/sovits_gradio.py
+	$(conda_run) python test/sovits_gradio.py
 
 
 init_conda:

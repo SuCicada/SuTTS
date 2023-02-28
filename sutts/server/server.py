@@ -2,6 +2,7 @@ import io
 import json
 import os
 import pickle
+from typing import Dict
 
 import numpy
 import numpy as np
@@ -10,6 +11,7 @@ from flask import make_response, Flask, request
 from flask_cors import CORS
 from pydantic import BaseModel
 
+from sutts.inference import character_model_map
 from sutts.inference.so_vits_svc import SoVitsSvcTTS
 
 # from fastapi import FastAPI
@@ -29,7 +31,14 @@ from sutts.inference.so_vits_svc import SoVitsSvcTTS
 app = Flask(__name__)
 CORS(app)
 
-so_vits_svc = SoVitsSvcTTS()
+# so_vits_svc = SoVitsSvcTTS()
+# TTS_Models = {}
+#
+# for name, model in character_model_map.items():
+#     TTS_Models[name] = SoVitsSvcTTS(model)
+TTS_Models: Dict[str, SoVitsSvcTTS] = \
+    {name: SoVitsSvcTTS(model) for
+     name, model in character_model_map.items()}
 
 
 class AudioParams(BaseModel):
@@ -44,10 +53,12 @@ class AudioParams(BaseModel):
 def audio():
     params = request.json
     text = params['text'].strip()
+    speaker = params['speaker'].strip()
     # params['speaker']
-    print(text)
-    sampling_rate, audio_data = so_vits_svc.get_audio(text)
-    audio_data: numpy.ndarray = audio_data
+    print(speaker, text)
+    tts = TTS_Models[speaker]
+    sampling_rate, audio_data = tts.get_audio(text)
+    # audio_data: numpy.ndarray = audio_data
     # byte_data = pickle.dumps({
     #     "status": "ok",
     #     "sampling_rate": sampling_rate

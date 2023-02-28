@@ -11,7 +11,7 @@ print(sys.path)
 
 from cache import CacheConfig
 
-CacheConfig.USE_CACHE_INFERENCE_AUDIO = False
+CacheConfig.USE_CACHE_INFERENCE_AUDIO = os.environ.get('USE_CACHE_INFERENCE_AUDIO', False)
 from sutts.inference import newSoVitsSvcTTS, CharacterModel
 
 
@@ -26,26 +26,28 @@ class VitsGradio:
         #     for dir in dirs:
         #         self.modelPaths.append(dir)
         with gr.Blocks() as self.Vits:
+            gr.Markdown("1.25 倍速效果最佳")
+            gr.Button("1.25倍速").click(None, [], [], _js=self.audio_js)
             with gr.Tab("VoiceConversion"):
                 with gr.Row() as self.VoiceConversion:
                     with gr.Column():
-                        with gr.Row():
-                            with gr.Column():
-                                # self.srcaudio = gr.Audio(label = "输入音频")
-                                self.text = gr.Textbox(label="输入文本", lines=5,
-                                                       value="こんにちは、私は人工知能です。私は、あなたの声を聞くことができます。")
-                                # self.btnVC = gr.Button("说话人转换")
-                                # with gr.Column():
-                                # self.dsid = gr.Dropdown(label = "目标角色", choices = self.lspk)
-                                # self.tran = gr.Slider(label = "升降调", maximum = 60, minimum = -60, step = 1, value = 0)
-                                # self.th = gr.Slider(label = "切片阈值", maximum = 32767, minimum = -32768, step = 0.1, value = -40)
-                                # with gr.Column():
-                                # with gr.Row():
-                                self.VCOutputs = gr.Audio()
-                                self.btnVC1 = gr.Button("美樹さやか转换")
-                                self.VCOutputs1 = gr.Audio()
-                                self.btnVC2 = gr.Button("佐倉杏子转换")
-                                self.VCOutputs2 = gr.Audio()
+                        # with gr.Row():
+                        #     with gr.Column():
+                        # self.srcaudio = gr.Audio(label = "输入音频")
+                        self.text = gr.Textbox(label="输入文本", lines=5,
+                                               value="こんにちは、私は人工知能です。私は、あなたの声を聞くことができます。")
+                        # self.btnVC = gr.Button("说话人转换")
+                        # with gr.Column():
+                        # self.dsid = gr.Dropdown(label = "目标角色", choices = self.lspk)
+                        # self.tran = gr.Slider(label = "升降调", maximum = 60, minimum = -60, step = 1, value = 0)
+                        # self.th = gr.Slider(label = "切片阈值", maximum = 32767, minimum = -32768, step = 0.1, value = -40)
+                        # with gr.Column():
+                        # with gr.Row():
+                        self.VCOutputs = gr.Audio()
+                        self.btnVC1 = gr.Button("美樹さやか转换")
+                        self.VCOutputs1 = gr.Audio()
+                        self.btnVC2 = gr.Button("佐倉杏子转换")
+                        self.VCOutputs2 = gr.Audio()
                 # self.btnVC.click(self.so.inference, inputs=[self.srcaudio,self.dsid,self.tran,self.th], outputs=[self.VCOutputs])
                 self.btnVC1.click(
                     self.get_audio(self.so_vits_svc1.get_audio_with_origin),
@@ -66,11 +68,13 @@ class VitsGradio:
                 #         devicestrs = gr.Dropdown(label = "设备", choices = ["cpu","cuda"], value = "cpu", type = "value")
                 #         btnMod = gr.Button("载入模型")
                 #         btnMod.click(self.loadModel, inputs=[modelstrs,devicestrs], outputs = [self.dsid,self.VoiceConversion])
-#
-#     audio_js = """()=>{
-# for(e of document.getElementsByTagName("audio"))(
-#  e.playbackRate=1.25)}
-#                     """
+
+    #
+    audio_js = """()=>{{
+for(let e of document.getElementsByTagName("audio")){
+ e.playbackRate=1.25; }
+ }}
+                    """
 
     def get_audio(self, fun):
         def fun1(text):
@@ -89,6 +93,5 @@ class VitsGradio:
 
 if __name__ == '__main__':
     grVits = VitsGradio()
-
-    grVits.Vits.launch(debug=True)
+    grVits.Vits.launch()
 # grVits.Vits.launch(debug=True,share=True)
