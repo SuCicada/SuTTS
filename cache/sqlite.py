@@ -21,6 +21,7 @@ class CacheSqlite:
     table_name = 'tts'
 
     def __init__(self):
+        os.mkdir(db_path) if not os.path.exists(db_path) else None
         # Connect to the database or create it if it doesn't exist
         self.conn = sqlite3.connect(self.sqlite_file, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
