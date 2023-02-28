@@ -28,4 +28,4 @@ sounddevice
 flask
 flask-cors
 
-gtts
+gTTS
