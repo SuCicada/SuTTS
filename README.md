@@ -1,10 +1,16 @@
 # SuTTS
 
-[![Hugging  Face  Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/SuCicada/SuTTS)
+HuggingFace Spaces: [![HuggingFace  Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/SuCicada/SuTTS)
 
 Web App: https://sucicada.github.io/sutts-homepage/
 
 Source of Web App: https://github.com/SuCicada/SuTTS-web
+
+### 目前成功训练模型：
+- 美樹さやか
+- 佐倉杏子
+
+## 下一步最主要也是最关键的声音是：岩倉玲音！！！
 
 
 ## For dev
