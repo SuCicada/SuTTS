@@ -4,7 +4,7 @@
 
 Web App: https://sucicada.github.io/sutts-homepage/
 
-Source of Web App: https://sucicada.github.io/sutts-homepage/
+Source of Web App: https://github.com/SuCicada/SuTTS-web
 
 
 ## For dev
