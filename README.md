@@ -1,5 +1,9 @@
 # SuTTS
 
+**a tts server with anime character voice by https://github.com/CyborgParadisum/so-vits-svc**
+
+<br>
+
 HuggingFace Spaces: [![HuggingFace  Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/SuCicada/SuTTS)
 
 Web App: https://sucicada.github.io/sutts-homepage/
