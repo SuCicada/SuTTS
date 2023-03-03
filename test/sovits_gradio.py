@@ -26,7 +26,8 @@ class VitsGradio:
         #     for dir in dirs:
         #         self.modelPaths.append(dir)
         with gr.Blocks() as self.Vits:
-            gr.Markdown("1.25 倍速效果最佳.  issue to: https://github.com/SuCicada/SuTTS ")
+            gr.Markdown("## issue and source in: [SuCicada/SuTTS](https://github.com/SuCicada/SuTTS) ")
+            gr.Markdown("1.25 倍速效果最佳. ")
             gr.Button("1.25倍速").click(None, [], [], _js=self.audio_js)
             with gr.Tab("VoiceConversion"):
                 with gr.Row() as self.VoiceConversion:

@@ -1,14 +1,14 @@
 # SuTTS
 
-**a tts server with anime character voice by https://github.com/CyborgParadisum/so-vits-svc**
+HuggingFace Spaces: [![HuggingFace  Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/SuCicada/SuTTS)
+
+Web App: [生きてください。](https://sucicada.github.io/sutts-homepage/)
+
+Source of Web App: [SuCicada/SuTTS-web](https://github.com/SuCicada/SuTTS-web)
 
 <br>
 
-HuggingFace Spaces: [![HuggingFace  Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/SuCicada/SuTTS)
-
-Web App: https://sucicada.github.io/sutts-homepage/
-
-Source of Web App: https://github.com/SuCicada/SuTTS-web
+**This is a TTS server with anime character voice by https://github.com/CyborgParadisum/so-vits-svc**
 
 ### 目前成功训练模型：
 - 美樹さやか
