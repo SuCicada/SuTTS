@@ -1,5 +1,7 @@
-conda_env = su-tts
-conda_run = conda run -n $(conda_env) --no-capture-output
+ifneq ($(conda),false)
+	conda_env = su-tts
+	conda_run = conda run -n $(conda_env) --no-capture-output
+endif
 run:
 	python main.py
 server:
